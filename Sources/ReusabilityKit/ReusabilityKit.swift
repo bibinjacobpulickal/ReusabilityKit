@@ -17,21 +17,37 @@ extension UITableViewCell: Reusable { }
 
 extension UICollectionViewCell: Reusable { }
 
+extension UITableViewHeaderFooterView: Reusable { }
+
 public extension UITableView {
 
-    func register<CellClass: UITableViewCell>(_ cell: CellClass.Type) {
-        register(cell, forCellReuseIdentifier: cell.identifier)
+    func register<CellClass: UITableViewCell>(_ cellClass: CellClass.Type) {
+        register(cellClass, forCellReuseIdentifier: cellClass.identifier)
+    }
+
+    func registerForHeaderFooterView<CellClass: UITableViewHeaderFooterView>(_ cellClass: CellClass.Type) {
+        register(cellClass, forHeaderFooterViewReuseIdentifier: cellClass.identifier)
     }
 
     func dequeue<CellClass: UITableViewCell>(
-        _ class: CellClass.Type,
+        _ cellClass: CellClass.Type,
         for indexPath: IndexPath,
         setup: ((CellClass) -> Void)? = nil) -> UITableViewCell {
-        let cell = dequeueReusableCell(withIdentifier: CellClass.identifier, for: indexPath)
+        let cell = dequeueReusableCell(withIdentifier: cellClass.identifier, for: indexPath)
         if let cell = cell as? CellClass {
             setup?(cell)
         }
         return cell
+    }
+
+    func deque<CellClass: UITableViewHeaderFooterView>(
+        _ cellClass: CellClass.Type,
+        setup: ((CellClass) -> Void)? = nil) -> UITableViewHeaderFooterView {
+        let cell = dequeueReusableHeaderFooterView(withIdentifier: cellClass.identifier)
+        if let cell = cell as? CellClass {
+            setup?(cell)
+        }
+        return cell ?? UITableViewHeaderFooterView()
     }
 }
 
