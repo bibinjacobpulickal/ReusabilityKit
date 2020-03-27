@@ -40,7 +40,7 @@ public extension UITableView {
         return cell
     }
 
-    func deque<CellClass: UITableViewHeaderFooterView>(
+    func dequeueHeaderFooterView<CellClass: UITableViewHeaderFooterView>(
         _ cellClass: CellClass.Type,
         setup: ((CellClass) -> Void)? = nil) -> UITableViewHeaderFooterView {
         let cell = dequeueReusableHeaderFooterView(withIdentifier: cellClass.identifier)
