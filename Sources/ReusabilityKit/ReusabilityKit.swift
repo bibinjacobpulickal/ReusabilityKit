@@ -21,6 +21,12 @@ extension UITableViewHeaderFooterView: Reusable { }
 
 public extension UITableView {
 
+    func register<CellClass: UITableViewCell>(_ cellClasses: [CellClass.Type]) {
+        for cellClass in cellClasses {
+            register(cellClass)
+        }
+    }
+
     func register<CellClass: UITableViewCell>(_ cellClass: CellClass.Type) {
         register(cellClass, forCellReuseIdentifier: cellClass.identifier)
     }
@@ -53,6 +59,12 @@ public extension UITableView {
 
 public extension UICollectionView {
 
+    func register<CellClass: UICollectionViewCell>(_ cellClasses: [CellClass.Type]) {
+        for cellClass in cellClasses {
+            register(cellClass)
+        }
+    }
+
     func register<CellClass: UICollectionViewCell>(_ cell: CellClass.Type) {
         register(cell, forCellWithReuseIdentifier: cell.identifier)
     }
@@ -75,6 +87,12 @@ import Cocoa
 extension NSCollectionViewItem: Reusable { }
 
 public extension NSCollectionView {
+
+    func register<CellClass: NSCollectionViewItem>(_ cellClasses: [CellClass.Type]) {
+        for cellClass in cellClasses {
+            register(cellClass)
+        }
+    }
 
     func register<ItemClass: NSCollectionViewItem>(_ itemClass: ItemClass.Type) {
         register(itemClass, forItemWithIdentifier: NSUserInterfaceItemIdentifier(itemClass.identifier))
